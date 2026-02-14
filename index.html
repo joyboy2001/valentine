@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Will You Be My Valentine?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+<style>
+/* --------- DESKTOP BLOCK --------- */
+@media (min-width: 768px) {
+    body {
+        background: black;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Segoe UI', sans-serif;
+    }
+    body::before {
+        content: "📱 Please open this on your mobile";
+        font-size: 24px;
+    }
+    .mobile {
+        display: none;
+    }
+}
+
+/* --------- BASE --------- */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(180deg, #ff758c, #ff7eb3);
+}
+
+.mobile {
+    min-height: 100vh;
+    padding: 30px 20px;
+    text-align: center;
+    color: #fff;
+}
+
+/* --------- PASSWORD --------- */
+#lockScreen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+input {
+    width: 80%;
+    padding: 14px;
+    border-radius: 25px;
+    border: none;
+    font-size: 16px;
+    margin: 15px auto;
+    text-align: center;
+}
+
+.unlock {
+    width: 80%;
+    padding: 14px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    background: white;
+    color: #e63946;
+}
+
+#error {
+    margin-top: 10px;
+}
+
+/* --------- MAIN UI --------- */
+.heart {
+    font-size: 48px;
+    animation: beat 1.2s infinite;
+}
+
+@keyframes beat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+    100% { transform: scale(1); }
+}
+
+.card {
+    background: white;
+    color: #333;
+    border-radius: 25px;
+    padding: 25px;
+    margin-top: 25px;
+}
+
+button {
+    width: 80%;
+    padding: 14px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    margin-top: 15px;
+}
+
+#yesBtn {
+    background: #e63946;
+    color: white;
+}
+
+#noBtn {
+    background: #ddd;
+}
+
+/* --------- LETTER --------- */
+.letter-wrapper {
+    display: none;
+    margin-top: 40px;
+}
+
+.envelope {
+    width: 200px;
+    height: 120px;
+    margin: auto;
+    position: relative;
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.flap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #e63946;
+    clip-path: polygon(0 0, 100% 0, 50% 60%);
+    transform-origin: top;
+    transition: transform 1s;
+}
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
+
+.letter {
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    background: white;
+    top: 10px;
+    left: 5%;
+    border-radius: 10px;
+    transition: transform 1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.envelope.open .letter {
+    transform: translateY(-130px);
+}
+
+.video-box {
+    display: none;
+    margin-top: 20px;
+}
+
+video {
+    width: 100%;
+    border-radius: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+    <source src="bg-music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="mobile">
+
+    <!-- LOCK SCREEN -->
+    <div id="lockScreen">
+        <h2>🔒 Enter the password</h2>
+        <input type="password" id="password" placeholder="Hint: Your name 😉">
+        <button class="unlock" onclick="unlock()">Unlock 💖</button>
+        <p id="error"></p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="mainContent" style="display:none;">
+        <div class="heart">❤️</div>
+        <h1>Rividyatha Sathakshi</h1>
+
+        <div class="card">
+            <p>
+                Every version of me<br>
+                chooses you.<br><br>
+                Today. Tomorrow.<br>
+                Always.
+            </p>
+
+            <h3>Will you be my Valentine? 💘</h3>
+
+            <button id="yesBtn" onclick="showLetter()">YES 😍</button>
+            <button id="noBtn" onmouseover="moveNo()">NO 🙄</button>
+        </div>
+
+        <!-- LETTER -->
+        <div class="letter-wrapper" id="letterWrap">
+            <p><b>Tap the letter 💌</b></p>
+
+            <div class="envelope" id="envelope" onclick="openLetter()">
+                <div class="flap"></div>
+                <div class="letter">💖</div>
+            </div>
+
+            <div class="video-box" id="videoBox">
+                <video controls autoplay>
+                    <source src="valentine-video.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+const correctPassword = "sathakshi"; // CHANGE PASSWORD HERE
+
+function unlock() {
+    const input = document.getElementById("password").value.toLowerCase();
+    if (input === correctPassword) {
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+        document.getElementById("bgMusic").play();
+    } else {
+        document.getElementById("error").innerText = "Wrong password 💔 Try again";
+    }
+}
+
+function showLetter() {
+    document.getElementById("letterWrap").style.display = "block";
+}
+
+function openLetter() {
+    document.getElementById("envelope").classList.add("open");
+    setTimeout(() => {
+        document.getElementById("videoBox").style.display = "block";
+    }, 1000);
+}
+
+function moveNo() {
+    const btn = document.getElementById("noBtn");
+    btn.style.transform = `translateX(${Math.random() * 100 - 50}px)`;
+}
+</script>
+
+</body>
+</html>
