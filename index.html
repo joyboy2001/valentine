@@ -2,256 +2,237 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Will You Be My Valentine?</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>For Rividyatha 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-/* --------- DESKTOP BLOCK --------- */
-@media (min-width: 768px) {
-    body {
-        background: black;
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: 'Segoe UI', sans-serif;
-    }
-    body::before {
-        content: "📱 Please open this on your mobile";
-        font-size: 24px;
-    }
-    .mobile {
-        display: none;
-    }
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
+body{
+height:100vh;
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#fff;
 }
 
-/* --------- BASE --------- */
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(180deg, #ff758c, #ff7eb3);
+/* Floating hearts */
+.heart{
+position:absolute;
+animation:float 7s linear infinite;
+opacity:.7;
+}
+@keyframes float{
+from{transform:translateY(110vh) scale(.5)}
+to{transform:translateY(-10vh) scale(1)}
 }
 
-.mobile {
-    min-height: 100vh;
-    padding: 30px 20px;
-    text-align: center;
-    color: #fff;
+/* LOCK SCREEN */
+#lock{
+background:rgba(255,255,255,.25);
+backdrop-filter:blur(15px);
+padding:30px;
+border-radius:25px;
+width:85%;
+max-width:360px;
+text-align:center;
+box-shadow:0 20px 40px rgba(0,0,0,.3);
+}
+#lock h2{margin-bottom:10px}
+#lock p{font-size:14px;opacity:.9}
+input{
+width:100%;
+padding:12px;
+border-radius:20px;
+border:none;
+outline:none;
+margin-top:15px;
+text-align:center;
+font-size:16px;
+}
+button{
+margin-top:15px;
+padding:12px 25px;
+border:none;
+border-radius:20px;
+background:#ff4d6d;
+color:#fff;
+font-size:16px;
 }
 
-/* --------- PASSWORD --------- */
-#lockScreen {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+/* MAIN */
+#main{display:none;flex-direction:column;align-items:center;text-align:center}
+.name{
+font-family:"Great Vibes",cursive;
+font-size:48px;
+margin-bottom:5px;
+}
+.countdown{
+margin:10px 0;
+font-size:14px;
+opacity:.9;
 }
 
-input {
-    width: 80%;
-    padding: 14px;
-    border-radius: 25px;
-    border: none;
-    font-size: 16px;
-    margin: 15px auto;
-    text-align: center;
+/* LETTER */
+#letter{
+width:180px;
+height:120px;
+background:#fff;
+margin-top:25px;
+border-radius:8px;
+position:relative;
+cursor:pointer;
+animation:pulse 2s infinite;
+box-shadow:0 15px 30px rgba(0,0,0,.25);
+}
+@keyframes pulse{
+50%{transform:scale(1.06)}
+}
+#flap{
+position:absolute;
+top:0;left:0;
+width:100%;
+height:60px;
+background:#ffe5ec;
+clip-path:polygon(0 0,50% 60%,100% 0);
+transform-origin:top;
+transition:1s;
 }
 
-.unlock {
-    width: 80%;
-    padding: 14px;
-    font-size: 18px;
-    border-radius: 30px;
-    border: none;
-    background: white;
-    color: #e63946;
+/* LETTER TEXT */
+#letterText{
+display:none;
+background:rgba(255,255,255,.9);
+color:#ff4d6d;
+padding:20px;
+border-radius:20px;
+margin-top:15px;
+width:85vw;
+max-width:360px;
+animation:slideUp 1s ease;
+}
+@keyframes slideUp{
+from{transform:translateY(50px);opacity:0}
+to{transform:translateY(0);opacity:1}
 }
 
-#error {
-    margin-top: 10px;
+/* VIDEO */
+#videoBox{
+display:none;
+margin-top:15px;
+animation:slideUp 1.2s ease;
+}
+video{
+width:90vw;
+max-width:360px;
+border-radius:20px;
+box-shadow:0 20px 40px rgba(0,0,0,.4);
 }
 
-/* --------- MAIN UI --------- */
-.heart {
-    font-size: 48px;
-    animation: beat 1.2s infinite;
-}
-
-@keyframes beat {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.25); }
-    100% { transform: scale(1); }
-}
-
-.card {
-    background: white;
-    color: #333;
-    border-radius: 25px;
-    padding: 25px;
-    margin-top: 25px;
-}
-
-button {
-    width: 80%;
-    padding: 14px;
-    font-size: 18px;
-    border-radius: 30px;
-    border: none;
-    margin-top: 15px;
-}
-
-#yesBtn {
-    background: #e63946;
-    color: white;
-}
-
-#noBtn {
-    background: #ddd;
-}
-
-/* --------- LETTER --------- */
-.letter-wrapper {
-    display: none;
-    margin-top: 40px;
-}
-
-.envelope {
-    width: 200px;
-    height: 120px;
-    margin: auto;
-    position: relative;
-    background: #f1f1f1;
-    border-radius: 10px;
-}
-
-.flap {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #e63946;
-    clip-path: polygon(0 0, 100% 0, 50% 60%);
-    transform-origin: top;
-    transition: transform 1s;
-}
-
-.envelope.open .flap {
-    transform: rotateX(180deg);
-}
-
-.letter {
-    position: absolute;
-    width: 90%;
-    height: 90%;
-    background: white;
-    top: 10px;
-    left: 5%;
-    border-radius: 10px;
-    transition: transform 1s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.envelope.open .letter {
-    transform: translateY(-130px);
-}
-
-.video-box {
-    display: none;
-    margin-top: 20px;
-}
-
-video {
-    width: 100%;
-    border-radius: 15px;
+/* BUTTONS */
+.actions button{
+margin:10px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Background Music -->
-<audio id="bgMusic" loop>
-    <source src="bg-music.mp3" type="audio/mpeg">
+<script>
+for(let i=0;i<25;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💖";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(20+Math.random()*20)+"px";
+h.style.animationDuration=(5+Math.random()*5)+"s";
+document.body.appendChild(h);
+}
+</script>
+
+<audio id="music" loop>
+<source src="bg-music.mp3" type="audio/mpeg">
 </audio>
 
-<div class="mobile">
+<!-- LOCK -->
+<div id="lock">
+<h2>🔐 Secret Page</h2>
+<p>Hint: <b>What do I call you the most?</b></p>
+<input type="password" id="pass" placeholder="Enter password">
+<button onclick="unlock()">Unlock 💖</button>
+</div>
 
-    <!-- LOCK SCREEN -->
-    <div id="lockScreen">
-        <h2>🔒 Enter the password</h2>
-        <input type="password" id="password" placeholder="Hint: Your name 😉">
-        <button class="unlock" onclick="unlock()">Unlock 💖</button>
-        <p id="error"></p>
-    </div>
+<!-- MAIN -->
+<div id="main">
+<div class="name">Rividyatha</div>
+<p>I made this… just for you 💕</p>
 
-    <!-- MAIN CONTENT -->
-    <div id="mainContent" style="display:none;">
-        <div class="heart">❤️</div>
-        <h1>Rividyatha Sathakshi</h1>
+<div class="countdown" id="countdown"></div>
 
-        <div class="card">
-            <p>
-                Every version of me<br>
-                chooses you.<br><br>
-                Today. Tomorrow.<br>
-                Always.
-            </p>
+<div id="letter" onclick="openLetter()">
+<div id="flap"></div>
+</div>
+<p>Tap the letter 💌</p>
 
-            <h3>Will you be my Valentine? 💘</h3>
+<div id="letterText">
+<p>
+From the moment you walked into my life,  
+everything felt warmer, softer, brighter.  
+This isn’t just a question… it’s a feeling ❤️
+</p>
+</div>
 
-            <button id="yesBtn" onclick="showLetter()">YES 😍</button>
-            <button id="noBtn" onmouseover="moveNo()">NO 🙄</button>
-        </div>
+<div id="videoBox">
+<video controls>
+<source src="valentine-video.mp4" type="video/mp4">
+</video>
+</div>
 
-        <!-- LETTER -->
-        <div class="letter-wrapper" id="letterWrap">
-            <p><b>Tap the letter 💌</b></p>
-
-            <div class="envelope" id="envelope" onclick="openLetter()">
-                <div class="flap"></div>
-                <div class="letter">💖</div>
-            </div>
-
-            <div class="video-box" id="videoBox">
-                <video controls autoplay>
-                    <source src="valentine-video.mp4" type="video/mp4">
-                </video>
-            </div>
-        </div>
-    </div>
-
+<div class="actions" id="proposal" style="display:none">
+<p style="margin-top:10px;font-size:18px">
+Will you be my Valentine? 💍
+</p>
+<button onclick="celebrate()">Yes 💖</button>
+<button onclick="celebrate()">Of course 😘</button>
+</div>
 </div>
 
 <script>
-const correctPassword = "sathakshi"; // CHANGE PASSWORD HERE
+const PASSWORD="chidu";
 
-function unlock() {
-    const input = document.getElementById("password").value.toLowerCase();
-    if (input === correctPassword) {
-        document.getElementById("lockScreen").style.display = "none";
-        document.getElementById("mainContent").style.display = "block";
-        document.getElementById("bgMusic").play();
-    } else {
-        document.getElementById("error").innerText = "Wrong password 💔 Try again";
-    }
+function unlock(){
+if(pass.value===PASSWORD){
+lock.style.display="none";
+main.style.display="flex";
+music.play();
+}else alert("Not quite… try again 💔");
 }
 
-function showLetter() {
-    document.getElementById("letterWrap").style.display = "block";
+function openLetter(){
+flap.style.transform="rotateX(180deg)";
+setTimeout(()=>letterText.style.display="block",600);
+setTimeout(()=>videoBox.style.display="block",1400);
+setTimeout(()=>proposal.style.display="block",2200);
 }
 
-function openLetter() {
-    document.getElementById("envelope").classList.add("open");
-    setTimeout(() => {
-        document.getElementById("videoBox").style.display = "block";
-    }, 1000);
+function celebrate(){
+alert("You just made me the happiest person 💕");
 }
 
-function moveNo() {
-    const btn = document.getElementById("noBtn");
-    btn.style.transform = `translateX(${Math.random() * 100 - 50}px)`;
-}
+/* Countdown */
+const target=new Date("Feb 14, 2026 18:00:00").getTime();
+setInterval(()=>{
+let now=new Date().getTime();
+let d=target-now;
+if(d>0){
+let h=Math.floor(d/36e5);
+let m=Math.floor(d%36e5/6e4);
+countdown.innerText=`⏳ ${h}h ${m}m until 6 PM`;
+}else countdown.innerText="💖 It's time";
+},1000);
 </script>
 
 </body>
